@@ -1,4 +1,8 @@
 <%= title %>
+<% if(success) { %>
+    <%= success %><% } %>
+<% if(error) { %>
+    <%= error %><% } %>
 <form class="form-horizontal" method="post" action="/login" style="border:1px solid #ddd;width:180px;background-color: #eee;margin:100px auto">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
@@ -24,6 +28,7 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-default">登录</button>
+      <button type="button" class="btn btn-default"><a href="http://localhost:3000/reg">注册</a></button>
     </div>
   </div>
 </form>

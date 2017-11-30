@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-
+var flash = require('connect-flash');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost:27017/datas');
 mongoose.connection.on('error', console.error.bind(console, '连接数据库失败'));
 
 var app = express();
-
+app.use(flash());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

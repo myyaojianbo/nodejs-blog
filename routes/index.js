@@ -8,38 +8,72 @@ var model = require('../models/model');
 var User = model.User;
 var Article = model.Article;
 
+
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  	res.render('index', 
-  				{ 
-  					title: '主页',
-  					arts:[{
-  						title:'node.js入门',
-  						tags:'node.js',
-  						author:' 二两肉',
-  						createTime:'2016年10月27日',
-  						content:'Node.js是一个基于Chrome JavaScript运行时建立的平台， 用于方便地搭建响应速度快、易于扩展的网络应用。Node.js 使用事件驱动， 非阻塞I/O 模型而得以轻量和高效，非常适合在分布式设备上运行的数据密集型的实时应用。'
-  					},{
-  						title:'node.js入门',
-  						tags:'node.js',
-  						author:' 二两肉',
-  						createTime:'2016年10月27日',
-  						content:'Node.js是一个基于Chrome JavaScript运行时建立的平台， 用于方便地搭建响应速度快、易于扩展的网络应用。Node.js 使用事件驱动， 非阻塞I/O 模型而得以轻量和高效，非常适合在分布式设备上运行的数据密集型的实时应用。'
-  					},{
-  						title:'node.js入门',
-  						tags:'node.js',
-  						author:' 二两肉',
-  						createTime:'2016年10月27日',
-  						content:'Node.js是一个基于Chrome JavaScript运行时建立的平台， 用于方便地搭建响应速度快、易于扩展的网络应用。Node.js 使用事件驱动， 非阻塞I/O 模型而得以轻量和高效，非常适合在分布式设备上运行的数据密集型的实时应用。'
-  					}],
-            user: req.session.user
+  var arts = '';
+  if(req.session.user){
+    Article.find({
+        author:req.session.user.username
+      },function(err,articles){
+        if(err) {
+          console.log('err');
+          return res.redirect('/');
+        }
+        console.log('arts'+arts);
+        res.render('index',{
+          title:'主页',
+          user:req.session.user,
+          success:req.flash('success').toString(),
+          error:req.flash('error').toString(),
+          arts:articles
+        });
+    });
+  }else{
+    return res.redirect('/login')
+  }
+  
+  	// res.render('index', 
+  	// 			{ 
+  	// 				title: '主页',
+   //          success: req.flash('success').toString(),
+   //          error: req.flash('error').toString(),
+  	// 				arts:[{
+  	// 					title:req.session.data.title,
+  	// 					tags:req.session.data.tag,
+  	// 					author:req.session.data.author,
+  	// 					createTime:req.session.data.createTime,
+  	// 					content:req.session.data.content
+  	// 				},{
+  	// 					title:'node.js入门',
+  	// 					tags:'node.js',
+  	// 					author:' 二两肉',
+  	// 					createTime:'2016年10月27日',
+  	// 					content:'Node.js是一个基于Chrome JavaScript运行时建立的平台， 用于方便地搭建响应速度快、易于扩展的网络应用。Node.js 使用事件驱动， 非阻塞I/O 模型而得以轻量和高效，非常适合在分布式设备上运行的数据密集型的实时应用。'
+  	// 				},{
+  	// 					title:'node.js入门',
+  	// 					tags:'node.js',
+  	// 					author:' 二两肉',
+  	// 					createTime:'2016年10月27日',
+  	// 					content:'Node.js是一个基于Chrome JavaScript运行时建立的平台， 用于方便地搭建响应速度快、易于扩展的网络应用。Node.js 使用事件驱动， 非阻塞I/O 模型而得以轻量和高效，非常适合在分布式设备上运行的数据密集型的实时应用。'
+  	// 				}],
+   //          user: req.session.user,
 
-				} );
+
+			// 	} );
 });
+
+
 
 /* 登录 */
 router.get('/login', function(req, res, next) {
-    res.render('login', {title: 'login', user: req.session.user});
+    res.render('login', {title: 'login', 
+                        user: req.session.user,
+                        success:req.flash('success'),
+                        error:req.flash('error')
+                      });
 });
 
 router.post('/login', function(req, res, next) {
@@ -59,12 +93,16 @@ router.post('/login', function(req, res, next) {
         if(newUser !=""){
           console.log(newUser);
           console.log('登陆成功');
+          req.flash('success',"登录成功！");
+
           req.session.user = newUser[0];
 
           return res.redirect('/');
 
         }else{
           console.log('用户名户密码错误');
+          req.flash('error',"用户名户密码错误");
+          return res.redirect("/login");
         }
       });
 });
@@ -75,7 +113,8 @@ router.post('/login', function(req, res, next) {
 router.get('/logout', function(req, res, next) {
     req.session.user =null;
     // res.render('logout', {title: 'logout'});
-    return res.redirect('/')
+    req.flash('success',"退出成功");
+    return res.redirect('/');
 
 });
 
@@ -83,7 +122,13 @@ router.get('/logout', function(req, res, next) {
 
 /* 注册 */
 router.get('/reg', function(req, res, next) {
-    res.render('reg', {title: 'reg', err:''});
+    res.render('reg', {
+      title: 'reg',
+      success:req.flash('success').toString(),
+      error:req.flash('error').toString()
+      // success:req.flash('success'),
+      // error:req.flash('error')
+      })
 });
 
 router.post('/reg', function(req, res, next) {
@@ -96,6 +141,7 @@ router.post('/reg', function(req, res, next) {
       // console.log('user',username);
     if(password != passwordRepeat) {
         console.log('两次输入的密码不一致！');
+        req.flash('error',"两次输入内容不一致");
         return res.redirect('/reg');
     }
 
@@ -107,6 +153,7 @@ router.post('/reg', function(req, res, next) {
 
          if(user) {
             console.log('用户名已经存在');
+            req.flash('error',"用户名已存在");
             return res.redirect('/reg');
         }
 
@@ -126,6 +173,8 @@ router.post('/reg', function(req, res, next) {
             }
 
             console.log('注册成功！');
+            req.flash('success',"注册成功");
+
             newUser.password = null;
             delete newUser.password;
 
@@ -139,16 +188,23 @@ router.post('/reg', function(req, res, next) {
 
 /* 发表文章 */
 router.get('/post', function(req, res, next) {
-    res.render('post', {title: 'post'});
+    res.render('post', {
+      title: 'post',
+      success:req.flash('success'),
+      error:req.flash('error'),
+      Article:"",
+      user:req.session.user});
 });
+
 
 router.post('/post', function(req, res, next) {
   var data = new Article({
-    title: req.body.title,
-    //这里的 author 元素通过 session 获得
-    author: req.session.user.username,
-    tag: req.body.tag,
-    content: req.body.content
+            title: req.body.title,
+             //这里的 author 元素通过 session 获得
+            author: req.session.user.username,
+            tag: req.body.tag,
+            createTime:Date.now(),
+            content: req.body.content
   });
 
   data.save(function(err, doc) {
@@ -157,9 +213,17 @@ router.post('/post', function(req, res, next) {
       return res.redirect('/post');
     }
     console.log('文章发表成功！');
+    req.flash('success',"文章发表成功")
+    req.session.data = data;
     return res.redirect('/');
   });
+
 });
+
+
+
+
+
 
 /* 查询*/
 router.get('/search', function(req, res, next) {
