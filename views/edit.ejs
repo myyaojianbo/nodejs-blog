@@ -1,18 +1,18 @@
 <%= title %>
-<form class="form-horizontal">
+<form class="form-horizontal" method="post" action='/edit/<%= art._id %>'>
   <div class="form-group form-group-lg">
     <label class="col-sm-2 control-label" for="formGroupInputLarge">标题</label>
     <div class="col-sm-10">
-      <input class="form-control" type="text" id="formGroupInputLarge" placeholder="Large input" value="<%= art.title %>">
+      <input class="form-control" type="text" id="formGroupInputLarge" placeholder="Large input" value='<%= art.title %>' name='title'>
     </div>
   </div>
   <div class="form-group form-group-sm">
     <label class="col-sm-2 control-label" for="formGroupInputSmall">标签</label>
     <div class="col-sm-10">
-      <input class="form-control" type="text" id="formGroupInputSmall" placeholder="Small input" value="<%= art.tag %>">
+      <input class="form-control" type="text" id="formGroupInputSmall" placeholder="Small input" value="<%= art.tag %>" name='tag'>
     </div>
   </div>
-  <textarea class="form-control" rows="5"><%= art.content %></textarea>
+  <textarea class="form-control" rows="5" name='content'><%= art.content %></textarea>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-default">保存文档</button>

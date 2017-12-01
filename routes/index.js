@@ -253,6 +253,8 @@ router.get('/edit/:_id', function(req, res, next) {
 });
 
 router.post('/edit/:_id', function(req, res, next) {
+  console.log('id', req.params._id)
+  console.log(req.body)
   Article.update({
     _id:req.params._id
   },{
@@ -262,7 +264,8 @@ router.post('/edit/:_id', function(req, res, next) {
     createTime: Date.now()
   },function(err,art){
     if(err){
-      console.log(err);
+      console.log('123');
+      console.log('err',err);
     }
     
     console.log('修改成功');
@@ -277,7 +280,7 @@ router.get('/remove/:_id', function(req, res, next) {
   Article.remove({
     //req.params可以处理 /:_id 形式的get或者post请求，获取请求参数
     _id:req.params._id
-  },function(err){
+    },function(err){
     if(err){
       console.log(err);
     }
@@ -285,6 +288,9 @@ router.get('/remove/:_id', function(req, res, next) {
     return res.redirect('/');
   })
 });
+
+/*点赞功能*/
+
 
 
 module.exports = router;
