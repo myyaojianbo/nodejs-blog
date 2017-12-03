@@ -13,6 +13,7 @@ var flash = require('connect-flash');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+
 mongoose.connect('mongodb://localhost:27017/datas');
 mongoose.connection.on('error', console.error.bind(console, '连接数据库失败'));
 

@@ -1,14 +1,10 @@
 var express = require('express');
 var router = express.Router();
-
-
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var model = require('../models/model');
 var User = model.User;
 var Article = model.Article;
-
-
 
 
 /* GET home page. */
@@ -22,7 +18,7 @@ router.get('/', function(req, res, next) {
         console.log('err');
         return res.redirect('/');
       }
-      // console.log('arts'+arts);
+      console.log('arts2222',articles);
       res.render('index',{
         title:'主页',
         user:req.session.user,
@@ -35,33 +31,6 @@ router.get('/', function(req, res, next) {
     return res.redirect('/login')
   }
 });
-  
-  	// res.render('index', 
-  	// 			{ 
-  	// 				title: '主页',
-    //        success: req.flash('success').toString(),
-    //        error: req.flash('error').toString(),
-  	// 				arts:[{
-  	// 					title:req.session.data.title,
-  	// 					tags:req.session.data.tag,
-  	// 					author:req.session.data.author,
-  	// 					createTime:req.session.data.createTime,
-  	// 					content:req.session.data.content
-  	// 				},{
-  	// 					title:'node.js入门',
-  	// 					tags:'node.js',
-  	// 					author:' 二两肉',
-  	// 					createTime:'2016年10月27日',
-  	// 					content:'Node.js是一个基于Chrome JavaScript运行时建立的平台， 用于方便地搭建响应速度快、易于扩展的网络应用。Node.js 使用事件驱动， 非阻塞I/O 模型而得以轻量和高效，非常适合在分布式设备上运行的数据密集型的实时应用。'
-  	// 				},{
-  	// 					title:'node.js入门',
-  	// 					tags:'node.js',
-  	// 					author:' 二两肉',
-  	// 					createTime:'2016年10月27日',
-  	// 					content:'Node.js是一个基于Chrome JavaScript运行时建立的平台， 用于方便地搭建响应速度快、易于扩展的网络应用。Node.js 使用事件驱动， 非阻塞I/O 模型而得以轻量和高效，非常适合在分布式设备上运行的数据密集型的实时应用。'
-  	// 				}],
-    //        user: req.session.user,
-		//      	});
 
 
 /* 登录 */
@@ -253,8 +222,8 @@ router.get('/edit/:_id', function(req, res, next) {
 });
 
 router.post('/edit/:_id', function(req, res, next) {
-  console.log('id', req.params._id)
-  console.log(req.body)
+  // console.log('id', req.params._id)
+  // console.log(req.body)
   Article.update({
     _id:req.params._id
   },{
@@ -273,8 +242,6 @@ router.post('/edit/:_id', function(req, res, next) {
   });
 });
 
-
-
 /* 删除*/
 router.get('/remove/:_id', function(req, res, next) {
   Article.remove({
@@ -289,9 +256,32 @@ router.get('/remove/:_id', function(req, res, next) {
   })
 });
 
-/*点赞功能*/
-
-
+/* 点赞*/
+router.get('/dianzan',function(req,res,next){
+   // console.log(req.query.id) 
+   // Article.findOne({_id:req.query.id},{},function(err,art){
+   //   console.log('art',art);
+   //   // if err   else
+   //   // if(err){
+   //   //  console.log('err',err);
+   //   // }else{
+   //   //    art._doc.dz=1;
+   //   //    console.log('art111111',art);
+   //   //    res.json({'sd':1});
+   //   // }
+   //    art._doc.dz=1;
+   //    console.log('art111111',art);
+   //    // res.json({'sd':1});
+   // })
+ Article.update({
+    _id:req.query.id
+  },{
+    dz:1
+  },function(err,art){   
+    console.log('art111111',art);
+    res.json({'sd':1});
+  });
+});
 
 module.exports = router;
 

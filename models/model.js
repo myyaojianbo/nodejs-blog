@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 
-
 var Schema = mongoose.Schema;
 var userSchema = new Schema	({
 		username:String,
@@ -19,6 +18,7 @@ var articleSchema = new Schema({
     author: String,
     tag: String,
     content: String,
+    dz: Number,
     createTime: {
         type: Date,
         default: Date.now
