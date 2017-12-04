@@ -14,26 +14,37 @@
         <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
         <script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script type="text/javascript">
-    $(function(){
-        $(".like").unbind("click").click(function(){
-            // console.log($(this));
-            // console.log($(this).data("ide"));
-            var id = $(this).data('ide');  
-            var that = this;
-            console.log('id',id);
-            
-            $.get("/dianzan",{id:id},function(data){
-                console.log(data)
-                if(data.sd){
-                    //变成已点赞
-                    $(that).html('已点赞');
-                    $(that).attr('disabled','disabled');
-                }
+            $(function(){
+                $(".like").unbind("click").click(function(){
+                    // console.log($(this));
+                    // console.log($(this).data("ide"));
+                    var id = $(this).data('ide');  
+                    var that = this;
+                    console.log('id',id);
+                    
+                    $.get("/dianzan",{id:id},function(data){
+                        console.log(data)
+                        if(data.sd){
+                            //变成已点赞
+                            $(that).html('已点赞');
+                            $(that).attr('disabled','disabled');
+                        }
+                    })
+                    
+                });
+
+                $(".remove-art").click(function(){
+                    var id = $(this).data('removeArt');  
+                    // console.log('iddd',id);
+                    var that = this;
+                    $.get("/remove",{id,id},function(data){
+                        if(data.rmit){
+                            $(that).parent().parent().remove();
+                        }
+                    })
+                })
             })
-            
-        })
-    })
-</script>
+        </script>
 
         <body>
         <!-- bootstrap导航条组件（默认样式） -->

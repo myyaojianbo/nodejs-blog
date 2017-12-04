@@ -1,6 +1,7 @@
 <%- include header %>
 <% arts.forEach(function(art) { %>
 
+
 <div style="margin: 50px 250px">
 	<div class="text-center">
 		<a href="#" style="text-decoration: none"><h1><%= art.title %></h1></a>
@@ -17,7 +18,7 @@
 			</p>
 		</article>
 		<br>
-		<span><a href="/remove/<%= art._id %>">删除</a></span>
+		<span><a class="remove-art" data-remove-art="<%= art._id %>" href="javascript:;">删除</a></span>
 		<span><a href="/edit/<%= art._id %>">编辑</a></span>
 		<% if( art.dz ){ %>
 		<button class="like" data-ide="<%= art._id %>" disabled="disabled">已点赞</button>
@@ -27,7 +28,10 @@
 	</div>
 	<hr/>
 </div>
+
+
 <% }) %>
+
 
 <%- include footer %> 
     
