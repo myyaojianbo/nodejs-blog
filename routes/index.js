@@ -177,20 +177,21 @@ router.post('/post', function(req, res, next) {
 
 /* 查询*/
 router.get('/search', function(req, res, next) {
-  //  想办法使用ajax 并且不用search页面 和index.ejs页面共用
+  // console.log('123333');
   var arts = ""
   //获取输入的标题 
-  var title = req.query.keyTitle;
+  var seartitle = req.query.ggtitle;
   // console.log("123");
-  console.log(title);
-  Article
-    .find({title:title},function(err,articles){
+  // console.log(seartitle);
+  Article.find({
+    title:seartitle
+    },function(err,articles){
       if(err){
         console.log(err);
         return res.redirect('/');
       }
 
-      res.render('search', {
+      res.render('index', {
         arts:articles,
         user:req.session.user
       });

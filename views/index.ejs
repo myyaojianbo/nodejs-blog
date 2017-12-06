@@ -1,8 +1,10 @@
 <%- include header %>
+
+<div class='box'>
 <% arts.forEach(function(art) { %>
 
 
-<div style="margin: 50px 250px">
+<div style="margin: 50px 250px" class="hf">
 	<div class="text-center">
 		<a href="#" style="text-decoration: none"><h1><%= art.title %></h1></a>
 		<div>
@@ -31,6 +33,7 @@
 
 
 <% }) %>
+</div>
 
 
 <%- include footer %> 

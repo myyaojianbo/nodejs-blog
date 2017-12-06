@@ -1,7 +1,7 @@
 <!DOCTYPE html><html>
     <head>
         <meta charset="UTF-8">
-        <title><%= title %></title>
+        <title></title>
         <style type="text/css">
             .center-block {
                 display: block;
@@ -15,6 +15,7 @@
         <script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script type="text/javascript">
             $(function(){
+                //点赞功能
                 $(".like").unbind("click").click(function(){
                     // console.log($(this));
                     // console.log($(this).data("ide"));
@@ -33,17 +34,20 @@
                     
                 });
 
+                //删除功能 
                 $(".remove-art").click(function(){
                     var id = $(this).data('removeArt');  
                     // console.log('iddd',id);
                     var that = this;
-                    $.get("/remove",{id,id},function(data){
+                    $.get("/remove",{id:id},function(data){
                         if(data.rmit){
                             $(that).parent().parent().remove();
                         }
                     })
                 })
-            })
+
+              
+            });
         </script>
 
         <body>
@@ -87,7 +91,7 @@
                     </ul>
                     <form class="navbar-form navbar-right" role="search" action='/search' method="get">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search" name="keyTitle">
+                            <input type="text" class="form-control search-title" placeholder="Search" name='ggtitle'>
                         </div>
                         <button type="submit" class="btn btn-default">搜索</button>
                     </form>
