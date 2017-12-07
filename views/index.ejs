@@ -27,6 +27,11 @@
 	    <% }else{ %>
 		<button class="like" data-ide="<%= art._id %>">点赞</button>
 		<% } %>
+		<% if( art.clt ){ %>
+		<span class="collect-art" data-collect="<%= art._id %>"><em style="display: inline-block;height:15px;width:20px;background: url(images/xinxin.jpg) no-repeat -447px -6px;"></em><em>已收藏</em></span>
+		<% }else{ %>
+		<span class="collect-art" data-collect="<%= art._id %>"><em style="display: inline-block;height:15px;width:20px;background: url(images/xinxin.jpg) no-repeat -470px -8px;"></em><em>收藏</em></span>
+		<% } %>
 	</div>
 	<hr/>
 </div>

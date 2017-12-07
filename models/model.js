@@ -19,6 +19,7 @@ var articleSchema = new Schema({
     tag: String,
     content: String,
     dz: Number,
+    clt:Number,
     createTime: {
         type: Date,
         default: Date.now
