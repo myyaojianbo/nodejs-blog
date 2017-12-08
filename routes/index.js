@@ -289,6 +289,25 @@ router.get('/collect',function(req,res,next){
       res.json({"cllt":1})
     })
 })
+
+//我的收藏
+router.get('/mycollected',function(req,res,next){
+  var arts = "";
+  console.log('aaa',req.query.clt);
+  Article.find({
+    clt:1,
+    author:req.session.user.username
+    },function(err,articles){
+      if(err){
+        console.log("err",err);
+        return res.redirect('/');
+      }
+      res.render('collect', {
+        arts:articles,
+        user:req.session.user
+      });
+    })
+})
 module.exports = router;
 
 

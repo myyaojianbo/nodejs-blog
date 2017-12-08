@@ -1,8 +1,8 @@
-<%- include header %>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="stylesheets/style.css">
 
 <div class='box'>
 <% arts.forEach(function(art) { %>
-
 
 <div class="hf">
 	<div class="text-center">
@@ -27,7 +27,7 @@
 	    <% }else{ %>
 		<button class="like button-active" data-ide="<%= art._id %>">点赞</button>
 		<% } %>
-		<% if( art.clt){ %>
+		<% if( art.clt ){ %>
 		<span class="collect-art" data-collect="<%= art._id %>"><em class="collect-article collect-position"></em><em>已收藏</em></span>
 		<% }else{ %>
 		<span class="collect-art" data-collect="<%= art._id %>"><em class="collect-article collect-position-prev"></em><em>收藏</em></span>
@@ -39,13 +39,3 @@
 
 <% }) %>
 </div>
-
-
-<%- include footer %> 
-    
-    
-    
-    
-
-
-
