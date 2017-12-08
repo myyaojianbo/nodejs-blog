@@ -9,7 +9,6 @@ var Article = model.Article;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var arts = '';
   if(req.session.user){
     Article.find({
       author:req.session.user.username
@@ -17,15 +16,16 @@ router.get('/', function(req, res, next) {
       if(err) {
         console.log('err');
         return res.redirect('/');
+      }else{
+        // console.log('arts2222',articles);
+        res.render('index',{
+          title:'主页',
+          user:req.session.user,
+          success:req.flash('success').toString(),
+          error:req.flash('error').toString(),
+          arts:articles
+        });
       }
-      console.log('arts2222',articles);
-      res.render('index',{
-        title:'主页',
-        user:req.session.user,
-        success:req.flash('success').toString(),
-        error:req.flash('error').toString(),
-        arts:articles
-      });
     });
   }else{
     return res.redirect('/login')
@@ -54,17 +54,18 @@ router.post('/login', function(req, res, next) {
         if(err){
           // console.log('err');
           req.flash("error",error);
-        }
-        if(newUser !=""){
-          // console.log(newUser);
-          // console.log('登陆成功');
-          req.flash('success',"登录成功！");
-          req.session.user = newUser[0];
-          return res.redirect('/');
         }else{
-          console.log('用户名户密码错误');
-          req.flash('error',"用户名户密码错误");
-          return res.redirect("/login");
+          if(newUser !=""){
+            // console.log(newUser);
+            // console.log('登陆成功');
+            req.flash('success',"登录成功！");
+            req.session.user = newUser[0];
+            return res.redirect('/');
+          }else{
+            console.log('用户名户密码错误');
+            req.flash('error',"用户名户密码错误");
+            return res.redirect("/login");
+          }
         }
     });
 });
@@ -106,38 +107,34 @@ router.post('/reg', function(req, res, next) {
       if(err) {
         console.log(err);
         return res.redirect('/reg');
-      }
-
-      if(user) {
-        console.log('用户名已经存在');
-        req.flash('error',"用户名已存在");
-        return res.redirect('/reg'); 
-      }
-
-      // var md5 = crypto.createHash('md5'),
-      //     md5password = md5.update(password).digest('hex');
-
-      var newUser = new User({
-        username: username,
-        password: password,
-        email: email
-      });
-
-      newUser.save(function(err, doc) {
-        if(err) {
-          console.log(err);
-          return res.redirect('/reg');
+      }else{
+        if(user) {
+          console.log('用户名已经存在');
+          req.flash('error',"用户名已存在");
+          return res.redirect('/reg'); 
         }else{
-          console.log('注册成功！');
-          req.flash('success',"注册成功");
+          var newUser = new User({
+              username: username,
+              password: password,
+              email: email
+          });
 
-          newUser.password = null;
-          delete newUser.password;
-          req.session.user = newUser;
-          return res.redirect('/');
+          newUser.save(function(err, doc) {
+            if(err) {
+              console.log(err);
+              return res.redirect('/reg');
+            }else{
+              console.log('注册成功！');
+              req.flash('success',"注册成功");
+
+              newUser.password = null;
+              delete newUser.password;
+              req.session.user = newUser;
+              return res.redirect('/');
+            }
+          });
         }
-      });
-
+      }
   });
 });
 
@@ -149,14 +146,15 @@ router.get('/post', function(req, res, next) {
     success:req.flash('success'),
     error:req.flash('error'),
     Article:"",
-    user:req.session.user});
+    user:req.session.user
+  });
 });
 
 router.post('/post', function(req, res, next) {
   var data = new Article({
     title: req.body.title,
     tag: req.body.tag,
-     //这里的 author 元素通过 session 获得
+    //这里的 author 元素通过 session 获得
     author: req.session.user.username,
     createTime:Date.now(),
     content: req.body.content
@@ -189,33 +187,30 @@ router.get('/search', function(req, res, next) {
       if(err){
         console.log(err);
         return res.redirect('/');
+      }else{
+        res.render('index', {
+          arts:articles,
+          user:req.session.user
+        });
       }
-
-      res.render('index', {
-        arts:articles,
-        user:req.session.user
-      });
     })
 });
 
 
 /* 编辑*/
-// router.get('/edit',function(req,res,next){
-//    res.render('edit', {title:"edit"});
-// });
-
 router.get('/edit/:_id', function(req, res, next) {
     Article.findOne({
       _id: req.params._id
     }, function(err, art) {
         if(err) {
-            console.log(err);
-            return res.redirect('/');
-        }
-        res.render('edit', {
+          console.log(err);
+          return res.redirect('/');
+        }else{
+          res.render('edit', {
             title: '编辑',
             art: art
-        });
+          });
+        }
     });
 });
 
@@ -285,8 +280,9 @@ router.get('/collect',function(req,res,next){
       if(err){
         console.log(err);
         return res.redirect('/');
+      }else{
+        res.json({"cllt":1});
       }
-      res.json({"cllt":1})
     })
 })
 
@@ -301,11 +297,12 @@ router.get('/mycollected',function(req,res,next){
       if(err){
         console.log("err",err);
         return res.redirect('/');
+      }else{
+        res.render('index', {
+          arts:articles,
+          user:req.session.user
+        });
       }
-      res.render('collect', {
-        arts:articles,
-        user:req.session.user
-      });
     })
 })
 module.exports = router;

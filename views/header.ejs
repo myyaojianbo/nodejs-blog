@@ -47,7 +47,9 @@
                     var that = this;
                     $.get("/collect",{_id:_id},function(data){
                         if(data.cllt){
-                            // console.log('cllt',data.cllt);
+                            /// console.log('cllt',data.cllt);
+                            // children[0]
+
                             $(that).children(0).css('background-position','-447px -6px').next().html("已收藏");
                         }
                     })
