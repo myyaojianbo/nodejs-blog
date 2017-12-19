@@ -1,21 +1,29 @@
 <%= title %>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="stylesheets/style.css">
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 <form class="form-horizontal" method="post" action='/edit/<%= art._id %>'>
-  <div class="form-group form-group-lg">
+  <div class="form-group form-group-sm">
     <label class="col-sm-2 control-label" for="formGroupInputLarge">标题</label>
-    <div class="col-sm-10">
+    <div class="col-sm-3">
       <input class="form-control" type="text" id="formGroupInputLarge" placeholder="Large input" value='<%= art.title %>' name='title'>
     </div>
   </div>
   <div class="form-group form-group-sm">
     <label class="col-sm-2 control-label" for="formGroupInputSmall">标签</label>
-    <div class="col-sm-10">
+    <div class="col-sm-3">
       <input class="form-control" type="text" id="formGroupInputSmall" placeholder="Small input" value="<%= art.tag %>" name='tag'>
     </div>
   </div>
-  <textarea class="form-control" rows="5" name='content'><%= art.content %></textarea>
+    <div class="form-group form-group-sm">
+    <label class="col-sm-2 control-label" for="formGroupInputSmall">标签</label>
+    <div class="col-sm-3">
+        <textarea class="form-control" rows="18" name='content' id="formGroupInputSmall"><%= art.content %></textarea>
+    </div>
+  </div>
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">保存文档</button>
+    <div class="col-sm-offset-2 col-sm-4">
+      <button type="submit" class="btn btn-primary">保存文档</button>
     </div>
   </div>
 </form>

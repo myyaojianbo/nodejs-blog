@@ -1,0 +1,83 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+  text-decoration: none;
+}
+
+.box {
+	position: relative;
+}
+
+.calendar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 240px;
+	width: 240px;
+	border:1px solid red;
+	display: block;
+}
+
+.hf {
+	margin: 50px 50px;
+}
+
+.center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.button-active {
+	background-color: white;
+	border:none;
+}
+
+.table-line{
+	display:inline-block;
+	height:12px;
+	border-color:#369;
+	border-left-style:solid;
+	border-width:1px;
+}
+
+.collect-article{
+	display: inline-block;
+	height:15px;
+	width:20px;
+}
+
+.collect-position-prev{
+	background: url(../img/xinxin.jpg) no-repeat -470px -8px;
+}
+
+.collect-position {
+	background: url(../img/xinxin.jpg) no-repeat -447px -6px; 
+}
+
+.cd-hero-slider .selected .container-margin{
+	margin-top: 100px;
+}
+
+.cd-full-width .col-xs-12 .size-post{
+	width: 600px;
+	height: 800px;
+}
+
+.cd-full-width .row .width-post{
+	width:70%;
+	height: 15px;
+	margin-top: 8px;
+}
+
+.cd-full-width .row .form-width{
+	width:660px;
+}
+
+.my-form-button{
+	margin-bottom: 15px;
+}
