@@ -269,7 +269,6 @@ router.get('/dianzan',function(req,res,next){
 //收藏文章
 router.get('/collect',function(req,res,next){
   var arts = ""
-  //获取输入的标题 
   var _id = req.query._id;
   console.log('id',_id);
   Article.update({

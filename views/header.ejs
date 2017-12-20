@@ -225,9 +225,9 @@
                                                         <button class="like button-active" data-ide="<%= art._id %>">点赞</button>
                                                         <% } %>
                                                         <% if( art.clt){ %>
-                                                        <span class="collect-art" data-collect="<%= art._id %>"><em class="collect-article collect-position"></em><em>已收藏</em></span>
+                                                        <span class="collect-art" data-collect="<%= art._id %>"><em class="collect-article collect-position"></em></span>
                                                         <% }else{ %>
-                                                        <span class="collect-art" data-collect="<%= art._id %>"><em class="collect-article collect-position-prev"></em><em>收藏</em></span>
+                                                        <span class="collect-art" data-collect="<%= art._id %>"><em class="collect-article collect-position-prev"></em></span>
                                                         <% } %>
                                                     </div>
                                                     <hr/>
@@ -254,13 +254,13 @@
                                         <div class="form-group form-group-sm my-form-button">
                                             <label class="col-sm-2 control-label" for="formGroupInputSmall">标题</label>
                                             <div class="col-sm-10">
-                                                <input class="form-control" type="text" formGroupInputSmall" name="title">
+                                                <input class="form-control my-form-button" type="text" formGroupInputSmall" name="title">
                                             </div>
                                         </div>
                                         <div class="form-group form-group-sm my-form-button">
                                             <label class="col-sm-2 control-label" for="formGroupInputSmall">标签</label>
                                             <div class="col-sm-10">
-                                                <input class="form-control" type="text" formGroupInputSm name="tag">
+                                                <input class="form-control my-form-button" type="text" formGroupInputSm name="tag">
                                             </div>
                                         </div>
                                         <div class="form-group form-group-sm">
@@ -326,7 +326,7 @@
                                                     欢迎来到闲谈博客，在这里您可以尽情的享受心情，您可以尽情的发表您的看法与意见，在这里，您将找到您心灵的伙伴！
                                                 </p>                                                
                                                 <button class="btn btn-danger"><a href="/logout">退出</a></button> 
-                                                <button class="btn btn-primary"><a href="//mycollected">收藏</a></button> 
+                                                <button class="btn btn-primary"><a href="/mycollected">收藏</a></button> 
                                             </div>
 
                                             <div class="tm-bg-white-translucent text-xs-left tm-textbox tm-2-col-textbox-2 tm-textbox-padding tm-textbox-padding-contact">

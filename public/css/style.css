@@ -47,16 +47,16 @@ a {
 
 .collect-article{
 	display: inline-block;
-	height:15px;
+	height:20px;
 	width:20px;
 }
 
 .collect-position-prev{
-	background: url(../img/xinxin.jpg) no-repeat -470px -8px;
+	background: url(../img/xiaotubiao2.jpg) no-repeat -455px -40px;
 }
 
 .collect-position {
-	background: url(../img/xinxin.jpg) no-repeat -447px -6px; 
+	background: url(../img/xinxin.jpg) no-repeat -445px -4px; 
 }
 
 .cd-hero-slider .selected .container-margin{
@@ -80,4 +80,8 @@ a {
 
 .my-form-button{
 	margin-bottom: 15px;
+}
+
+.my-form-label{
+	text-align: right;
 }
