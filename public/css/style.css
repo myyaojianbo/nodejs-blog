@@ -85,3 +85,11 @@ a {
 .my-form-label{
 	text-align: right;
 }
+
+.p-color {
+	color: blue!important;
+}
+
+.a-color {
+	color: red;
+}
